@@ -3,10 +3,10 @@ from tkinter import scrolledtext
 import threading
 import requests
 import urllib3
+import pyperclip  # Import pyperclip for clipboard functionality
 
 # Disable SSL warnings
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
 
 def fetch_mitre_technique_description(technique_id):
     url = "https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json"
@@ -27,7 +27,6 @@ def fetch_mitre_technique_description(technique_id):
     except requests.exceptions.RequestException as e:
         return f"An error occurred: {e}"
 
-
 def on_go_button_click():
     technique_id = input_text.get().strip().upper().replace('_', '.')
 
@@ -39,16 +38,17 @@ def on_go_button_click():
     thread = threading.Thread(target=lambda: update_output(fetch_description()))
     thread.start()
 
-
 def update_output(description):
     # Update the output text area in the main GUI thread
     root.after(0, output_text.delete, '1.0', tk.END)  # Clear previous content
     root.after(0, output_text.insert, '1.0', description)  # Insert new content
 
+def copy_to_clipboard():
+    description = output_text.get('1.0', tk.END)  # Get text from output text area
+    pyperclip.copy(description)  # Copy description to clipboard
 
 def on_enter_key(event):
     on_go_button_click()
-
 
 # Create the main window
 root = tk.Tk()
@@ -82,9 +82,17 @@ input_text.pack(pady=5)
 output_text = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=60, height=15)
 output_text.pack(pady=10)
 
+# Create a frame for buttons to align them horizontally
+button_frame = tk.Frame(root)
+button_frame.pack(pady=5)
+
 # Create and place the Go! button
-go_button = tk.Button(root, text="Go!", command=on_go_button_click)
-go_button.pack(pady=5)
+go_button = tk.Button(button_frame, text="Go!", command=on_go_button_click)
+go_button.pack(side=tk.LEFT, padx=5)
+
+# Create and place the Copy to Clipboard button
+copy_button = tk.Button(button_frame, text="Copy to Clipboard", command=copy_to_clipboard)
+copy_button.pack(side=tk.LEFT, padx=5)
 
 # Bind the Enter key to the Go! button
 root.bind('<Return>', on_enter_key)
