@@ -42,4 +42,4 @@ The MITRE Technique Querier is a simple GUI application built in Python using tk
 - Ensure a stable internet connection for fetching technique descriptions from the MITRE ATT&CK repository.
 
 ## Feedback
-Your feedback is valuable! If you encounter any issues or have suggestions for improvement, please create an issue or contact [your contact information].
+Your feedback is valuable! If you encounter any issues or have suggestions for improvement, please create an issue or contact me.
