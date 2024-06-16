@@ -15,7 +15,7 @@ The MITRE Technique Querier is a simple GUI application built in Python using tk
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/mitre-technique-querier.git
+   git clone https://github.com/BenYemini/mitre-technique-querier.git
    cd mitre-technique-querier
 ### Install Dependencies
 - Ensure Python 3 is installed on your system.
