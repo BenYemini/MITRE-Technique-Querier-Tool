@@ -22,7 +22,7 @@ The MITRE Technique Querier is a simple GUI application built in Python using tk
 - Use pip to install required packages:
 
    ```bash
-   pip install requests urllib3 tkinter
+   pip install requests urllib3 tkinter pyperclip
 ## Usage
 ### Launch the Application
 - Run the main.py script:
