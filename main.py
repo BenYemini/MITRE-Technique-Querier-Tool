@@ -27,12 +27,20 @@ def fetch_mitre_technique_description(technique_id):
     except requests.exceptions.RequestException as e:
         return f"An error occurred: {e}"
 
+def process_text(description):
+    characters_to_remove = "-|><!&;"
+    description = description.replace("\\", "/")
+    for char in characters_to_remove:
+        description = description.replace(char, "")
+    return description
+
 def on_go_button_click():
     technique_id = input_text.get().strip().upper().replace('_', '.')
 
     def fetch_description():
         description = fetch_mitre_technique_description(technique_id)
-        return description
+        processed_description = process_text(description)
+        return processed_description
 
     # Run the fetch_description function in a separate thread
     thread = threading.Thread(target=lambda: update_output(fetch_description()))
